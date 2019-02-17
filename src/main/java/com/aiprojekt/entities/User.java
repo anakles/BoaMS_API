@@ -5,17 +5,22 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import io.swagger.annotations.ApiModelProperty;
+
 @Entity
 @Table(name="users")
 public class User {
 	
 	@Id
+	@ApiModelProperty(notes="Unique identifier for every user")
 	@Column(name="user_id")
 	private long user_id;
 	
+	@ApiModelProperty(notes="Login name used for the directory service")
 	@Column(name="login_name")
 	private String login_name;
 	
+	@ApiModelProperty(notes="Display name of a user provided by the directory service")
 	@Column(name="display_name")
 	private String display_name;
 	

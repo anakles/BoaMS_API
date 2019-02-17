@@ -7,23 +7,30 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import io.swagger.annotations.ApiModelProperty;
+
 @Entity
 @Table(name="messages")
 public class Message {
 
 	@Id
+	@ApiModelProperty(notes="Unique identifier of a message depending on the chatroom")
 	@Column(name="message_id")
 	private long message_id;
 	
+	@ApiModelProperty(notes="Unique identifier on the chatroom the message was send to/from")
 	@Column(name="message_chatroom_id")
 	private long message_chatroom_id;
 	
+	@ApiModelProperty(notes="Content of a message")
 	@Column(name="message_txt")
 	private String message_txt;
 	
+	@ApiModelProperty(notes="Unique identifier of the author of a message")
 	@Column(name="message_author_id")
 	private long message_author_id;
 	
+	@ApiModelProperty(notes="Auto-generated date of when the message was created/sent")
 	@Column(name="message_creation_date")
 	private Date message_creation_date;
 	

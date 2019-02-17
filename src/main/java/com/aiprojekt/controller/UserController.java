@@ -8,6 +8,10 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMethod;
 import com.aiprojekt.services.UserService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
+@Api(value="Users")
 @RestController
 public class UserController {
 	
@@ -15,6 +19,7 @@ public class UserController {
 	 private UserService userService;
 	 
 	 //GET ALL:
+	 @ApiOperation(value="View all users")
 	 @RequestMapping(value="/users", method = RequestMethod.GET)
 	 public List getAllUsers() {
 		 return userService.getAllUsers();

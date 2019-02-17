@@ -7,20 +7,26 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import io.swagger.annotations.ApiModelProperty;
+
 @Entity
 @Table(name="chatrooms")
 public class Chatroom {
 
 	@Id
+	@ApiModelProperty(notes="Unique identifier of a chatroom")
 	@Column(name="chatroom_id")
 	private long chatroom_id;
-	
+
+	@ApiModelProperty(notes="Given name to a conversation or a group chat")
 	@Column(name="chatroom_name")
 	private String chatroom_name;
 	
+	@ApiModelProperty(notes="Date and time the chatroom was created")
 	@Column(name="chatroom_creation_date")
 	private Date chatroom_creation_date;
 	
+	@ApiModelProperty(notes="Unique identifier of the owner/creator of a chatroom")
 	@Column(name="chatroom_owner_id")
 	private long chatroom_owner_id;
 	
