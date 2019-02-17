@@ -1,11 +1,18 @@
 package com.aiprojekt.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import com.aiprojekt.entities.Chatroom;
 import com.aiprojekt.services.ChatroomService;
 
 import io.swagger.annotations.Api;
@@ -24,4 +31,38 @@ public class ChatroomController {
 	 public List getAllChatrooms() {
 		 return chatroomService.getAllChatrooms();
 	 }
+	 
+	 //GET BY ID:
+	 @ApiOperation(value="View the chatroom with given ID")
+	 @RequestMapping(value="/chatrooms/{id}", method = RequestMethod.GET)
+	 public Optional<Chatroom> getChatroom(@PathVariable String id){
+		 return chatroomService.getChatroom(id);
+	 }
+	 
+	//GET BY ID:
+	@ApiOperation(value="Add a chatroom")
+	@RequestMapping(value="/chatrooms}", method = RequestMethod.POST)
+	public ResponseEntity addChatroom(@RequestBody Chatroom chatroom){
+		chatroomService.addChatroom(chatroom);
+		return new ResponseEntity("Chatroom successfully added", HttpStatus.OK);
+	}
+	
+	//GET BY ID:
+	@ApiOperation(value="Edit a chatroom")
+	@RequestMapping(value="/chatrooms/{id}}", method = RequestMethod.PUT)
+	public ResponseEntity addChatroom(@PathVariable String id, @RequestBody Chatroom chatroom){
+		chatroomService.updateChatroom(id, chatroom);
+		return new ResponseEntity("Chatroom successfully edited", HttpStatus.CREATED);
+	}
+	
+	//GET BY ID:
+	@ApiOperation(value="Remove the chatroom with the given ID")
+	@RequestMapping(value="/chatrooms/{id}}", method = RequestMethod.DELETE)
+	public ResponseEntity deleteChatroom(@PathVariable String id){
+		chatroomService.deleteChatroom(id);
+		return new ResponseEntity("Chatroom successfully deleted", HttpStatus.OK);
+	}
+		
+		
+		 
 }

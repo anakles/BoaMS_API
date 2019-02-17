@@ -1,11 +1,18 @@
 package com.aiprojekt.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import com.aiprojekt.entities.Message;
 import com.aiprojekt.services.MessageService;
 
 import io.swagger.annotations.Api;
@@ -25,4 +32,43 @@ public class MessageController {
 	 public List getAllMessages() {
 		 return messageService.getAllMessages();
 	 }
+	 
+	//GET SINGLE MESSAGE BY ID:
+	@ApiOperation(value="Get a message by its ID")
+	@RequestMapping(value="/messages/{id}", method = RequestMethod.GET)
+	public Optional<Message> getMessage(@PathVariable String id) {
+		return messageService.getMessage(id);
+	}
+	
+	
+	//CREATE:
+	@ApiOperation(value="Create a message")
+	@RequestMapping(value="/messages", method = RequestMethod.POST)
+	public ResponseEntity addMessage(@RequestBody Message message) {
+		messageService.addMessage(message);
+		return new ResponseEntity("Message successfully added", HttpStatus.CREATED);
+	}
+	
+	
+	//UPDATE BY ID:
+	@ApiOperation(value="Edit the message with the given ID")
+	@RequestMapping(value="/messages/{id}", method = RequestMethod.PUT)
+	public ResponseEntity updateMessage(@PathVariable String id, @RequestBody Message message) {
+		messageService.updateMessage(id, message);
+		return new ResponseEntity("Message successfully added", HttpStatus.OK);
+	}
+		
+		
+	//DELETE BY ID:
+	@ApiOperation(value="Delete the message with the given ID")
+	@RequestMapping(value="/messages/{id}", method = RequestMethod.DELETE)
+	public ResponseEntity deleteMessage(@PathVariable String id) {
+		messageService.deleteMessage(id);
+		return new ResponseEntity("Message successfully deleted", HttpStatus.OK);
+	}
+	
+	
+	
+	
+	
 }

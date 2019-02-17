@@ -2,8 +2,12 @@ package com.aiprojekt.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.GeneratorType;
 
 import io.swagger.annotations.ApiModelProperty;
 
@@ -12,9 +16,10 @@ import io.swagger.annotations.ApiModelProperty;
 public class User {
 	
 	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	@ApiModelProperty(notes="Unique identifier for every user")
 	@Column(name="user_id")
-	private long user_id;
+	private String user_id;
 	
 	@ApiModelProperty(notes="Login name used for the directory service")
 	@Column(name="login_name")
@@ -26,7 +31,7 @@ public class User {
 	
 	public User() {}
 	
-	public User(long user_id, String login_name, String display_name) {
+	public User(String user_id, String login_name, String display_name) {
 		this.user_id = user_id;
 		this.login_name = login_name;
 		this.display_name = display_name;
@@ -40,11 +45,11 @@ public class User {
 	 * 			GETTER/SETTERs
 	 * -------------------------------------*/
 	
-	public long getUser_id() {
+	public String getUser_id() {
 		return user_id;
 	}
 
-	public void setUser_id(long user_id) {
+	public void setUser_id(String user_id) {
 		this.user_id = user_id;
 	}
 

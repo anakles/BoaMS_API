@@ -4,6 +4,8 @@ import java.sql.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -14,9 +16,10 @@ import io.swagger.annotations.ApiModelProperty;
 public class Chatroom {
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	@ApiModelProperty(notes="Unique identifier of a chatroom")
 	@Column(name="chatroom_id")
-	private long chatroom_id;
+	private String chatroom_id;
 
 	@ApiModelProperty(notes="Given name to a conversation or a group chat")
 	@Column(name="chatroom_name")
@@ -28,11 +31,11 @@ public class Chatroom {
 	
 	@ApiModelProperty(notes="Unique identifier of the owner/creator of a chatroom")
 	@Column(name="chatroom_owner_id")
-	private long chatroom_owner_id;
+	private String chatroom_owner_id;
 	
 	public Chatroom() {}
 	
-	public Chatroom(long chatroomId, String chatroomName, Date chatroomCreationDate, long chatroomOwnerId) {
+	public Chatroom(String chatroomId, String chatroomName, Date chatroomCreationDate, String chatroomOwnerId) {
 		this.chatroom_id = chatroomId;
 		this.chatroom_name = chatroomName;
 		this.chatroom_creation_date = chatroomCreationDate;
@@ -50,11 +53,11 @@ public class Chatroom {
 	 * 			GETTER/SETTERs
 	 * -------------------------------------*/
 	
-	public long getChatroom_id() {
+	public String getChatroom_id() {
 		return chatroom_id;
 	}
 
-	public void setChatroom_id(long chatroom_id) {
+	public void setChatroom_id(String chatroom_id) {
 		this.chatroom_id = chatroom_id;
 	}
 
@@ -74,11 +77,11 @@ public class Chatroom {
 		this.chatroom_creation_date = chatroom_creation_date;
 	}
 
-	public long getChatroom_owner_id() {
+	public String getChatroom_owner_id() {
 		return chatroom_owner_id;
 	}
 
-	public void setChatroom_owner_id(long chatroom_owner_id) {
+	public void setChatroom_owner_id(String chatroom_owner_id) {
 		this.chatroom_owner_id = chatroom_owner_id;
 	}
 	
