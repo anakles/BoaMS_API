@@ -52,6 +52,6 @@ public class UserController {
 	@RequestMapping(value="/users/{id}", method = RequestMethod.PUT)
 	public ResponseEntity updateUser(@PathVariable String id, @RequestBody User user) {
 		userService.updateUser(id, user);
-		return new ResponseEntity("User successfully added", HttpStatus.OK);
+		return new ResponseEntity("User successfully edited", HttpStatus.OK);
 	}
 }

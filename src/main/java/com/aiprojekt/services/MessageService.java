@@ -24,8 +24,8 @@ public class MessageService {
 		return messages;
 	}
 	
-	public Optional<Message> getMessage(String message_id) {
-		return messageRepository.findById(message_id);
+	public Optional<Message> getMessage(long message_id) {
+		return messageRepository.findByMessageId(Long.valueOf(message_id));
 	}
 	
 	public void addMessage(Message message) {
@@ -37,7 +37,7 @@ public class MessageService {
 	}
 	
 	public void deleteMessage(String message_id) {
-		messageRepository.deleteById(message_id);
+		messageRepository.removeByMessageId(Long.valueOf(message_id));
 	}
 	
 }

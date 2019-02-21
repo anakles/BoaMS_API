@@ -1,12 +1,12 @@
 package com.aiprojekt.entities;
 
-import java.sql.Date;
-
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
 import io.swagger.annotations.ApiModelProperty;
@@ -16,34 +16,34 @@ import io.swagger.annotations.ApiModelProperty;
 public class Chatroom {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@ApiModelProperty(notes="Unique identifier of a chatroom")
 	@Column(name="chatroom_id")
-	private String chatroom_id;
+	private long chatroomId;
 
 	@ApiModelProperty(notes="Given name to a conversation or a group chat")
 	@Column(name="chatroom_name")
-	private String chatroom_name;
+	private String chatroomName;
 	
 	@ApiModelProperty(notes="Date and time the chatroom was created")
 	@Column(name="chatroom_creation_date")
-	private Date chatroom_creation_date;
+	private Date chatroomCreationDate;
 	
 	@ApiModelProperty(notes="Unique identifier of the owner/creator of a chatroom")
 	@Column(name="chatroom_owner_id")
-	private String chatroom_owner_id;
+	private long chatroomOwnerId;
 	
 	public Chatroom() {}
 	
-	public Chatroom(String chatroomId, String chatroomName, Date chatroomCreationDate, String chatroomOwnerId) {
-		this.chatroom_id = chatroomId;
-		this.chatroom_name = chatroomName;
-		this.chatroom_creation_date = chatroomCreationDate;
-		this.chatroom_owner_id = chatroomOwnerId;
+	public Chatroom(String chatroomName, long chatroomOwnerId) {
+		this.chatroomName = chatroomName;
+		this.chatroomOwnerId = chatroomOwnerId;
 	}
 
-
-	
+	@PrePersist
+	public void createdAt() {
+		this.chatroomCreationDate = new Date();
+	}	
 	
 	
 	
@@ -53,36 +53,36 @@ public class Chatroom {
 	 * 			GETTER/SETTERs
 	 * -------------------------------------*/
 	
-	public String getChatroom_id() {
+	/*public long getChatroom_id() {
 		return chatroom_id;
 	}
 
-	public void setChatroom_id(String chatroom_id) {
+	public void setChatroom_id(long chatroom_id) {
 		this.chatroom_id = chatroom_id;
-	}
+	}*/
 
 	public String getChatroom_name() {
-		return chatroom_name;
+		return chatroomName;
 	}
 
 	public void setChatroom_name(String chatroom_name) {
-		this.chatroom_name = chatroom_name;
+		this.chatroomName = chatroom_name;
 	}
 
-	public Date getChatroom_creation_date() {
+	/*public Date getChatroom_creation_date() {
 		return chatroom_creation_date;
 	}
 
 	public void setChatroom_creation_date(Date chatroom_creation_date) {
 		this.chatroom_creation_date = chatroom_creation_date;
+	}*/
+
+	public long getChatroom_owner_id() {
+		return chatroomOwnerId;
 	}
 
-	public String getChatroom_owner_id() {
-		return chatroom_owner_id;
-	}
-
-	public void setChatroom_owner_id(String chatroom_owner_id) {
-		this.chatroom_owner_id = chatroom_owner_id;
+	public void setChatroom_owner_id(long chatroom_owner_id) {
+		this.chatroomOwnerId = chatroom_owner_id;
 	}
 	
 	

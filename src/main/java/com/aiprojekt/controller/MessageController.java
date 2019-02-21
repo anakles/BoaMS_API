@@ -36,7 +36,7 @@ public class MessageController {
 	//GET SINGLE MESSAGE BY ID:
 	@ApiOperation(value="Get a message by its ID")
 	@RequestMapping(value="/messages/{id}", method = RequestMethod.GET)
-	public Optional<Message> getMessage(@PathVariable String id) {
+	public Optional<Message> getMessage(@PathVariable long id) {
 		return messageService.getMessage(id);
 	}
 	

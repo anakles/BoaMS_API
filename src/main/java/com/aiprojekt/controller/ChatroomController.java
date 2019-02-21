@@ -51,7 +51,7 @@ public class ChatroomController {
 	@ApiOperation(value="Edit a chatroom")
 	@RequestMapping(value="/chatrooms/{id}}", method = RequestMethod.PUT)
 	public ResponseEntity addChatroom(@PathVariable String id, @RequestBody Chatroom chatroom){
-		chatroomService.updateChatroom(id, chatroom);
+		chatroomService.updateChatroom(chatroom);
 		return new ResponseEntity("Chatroom successfully edited", HttpStatus.CREATED);
 	}
 	
