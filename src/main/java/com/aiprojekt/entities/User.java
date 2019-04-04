@@ -1,11 +1,17 @@
 package com.aiprojekt.entities;
 
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModelProperty;
 
 @Entity
@@ -25,6 +31,13 @@ public class User {
 	@ApiModelProperty(notes="Display name of a user provided by the directory service")
 	@Column(name="display_name")
 	private String displayName;
+
+	@ManyToMany(
+			mappedBy="users",
+			fetch=FetchType.EAGER)
+	@JsonBackReference
+	@ApiModelProperty(notes="List of all chatrooms this user is included")
+	private Set<Chatroom> chatrooms = new HashSet<Chatroom>();
 	
 	public User() {}
 	
@@ -41,11 +54,11 @@ public class User {
 	 * 			GETTER/SETTERs
 	 * -------------------------------------*/
 	
-	/*public long getUser_id() {
-		return user_id;
+	public long getUser_id() {
+		return userId;
 	}
 
-	
+	/*
 	public void setUser_id(long user_id) {
 		this.user_id = user_id;
 	}*/
@@ -64,6 +77,18 @@ public class User {
 
 	public void setDisplay_name(String display_name) {
 		this.displayName = display_name;
+	}
+
+	public Set<Chatroom> getChatrooms() {
+		return chatrooms;
+	}
+
+	public void setChatrooms(Set<Chatroom> chatrooms) {
+		this.chatrooms = chatrooms;
+	}
+	
+	public void addChatroom(Chatroom chatroom) {
+		this.chatrooms.add(chatroom);
 	}
 	
 }
