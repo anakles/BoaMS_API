@@ -11,4 +11,6 @@ public interface ChatroomRepository extends CrudRepository<Chatroom, String> {
 	public Optional<Chatroom> findByChatroomId(long chatroomId);
 	
 	public void removeByChatroomId(long chatroomId);
+	
+
 }

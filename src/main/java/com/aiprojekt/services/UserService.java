@@ -25,24 +25,38 @@ public class UserService {
 		return users;		
 	}
 	
-	public Optional<User> getUser(String userId) {
-		return userRepository.findByUserId(Long.valueOf(userId));
+	public Optional<User> getUser(Long userId) {
+		return userRepository.findByUserId(userId);
 	}
 	
 	public void addUser(User user) {
 		userRepository.save(user);
 	}
 	
-	public void updateUser(String user_id, User user) {
-		userRepository.save(user);
+	public void updateUser(Long user_id, User user) {
+		
+		Optional<User> temp = userRepository.findByUserId(user_id);
+		
+		if(!temp.isPresent()) return;
+		
+		User old_user = temp.get();
+		
+		//Update attributes:
+		if(!old_user.getDisplay_name().contentEquals(user.getDisplay_name()))
+			old_user.setDisplay_name(user.getDisplay_name());
+		
+		if(!old_user.getLogin_name().contentEquals(user.getLogin_name()))
+			old_user.setLogin_name(user.getLogin_name());
+		
+		userRepository.save(old_user);
 	}
 	
 	public Optional<User> getUserByLoginName(String loginName) {
 		return userRepository.findByLoginName(loginName);
 	}
 	
-	public Set<Chatroom> getChatroomsOfUser(String userId) {
-		Optional<User> user = userRepository.findByUserId(Long.valueOf(userId));
+	public Set<Chatroom> getChatroomsOfUser(Long userId) {
+		Optional<User> user = userRepository.findByUserId(userId);
 		return user.get().getChatrooms();
 	}
 	

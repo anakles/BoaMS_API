@@ -36,7 +36,7 @@ public class UserController {
 	//GET ONE BY ID:
 	@ApiOperation(value="Find user by ID")
 	@RequestMapping(value="/users/{id}", method = RequestMethod.GET)
-	public Optional<User> getUser(@PathVariable String id) {
+	public Optional<User> getUser(@PathVariable Long id) {
 		return userService.getUser(id);
 	}
 	
@@ -48,11 +48,11 @@ public class UserController {
 	}
 	
 	//GET CHATROOMS BY ID:
-		@ApiOperation(value="Find all chatrooms a user is in by the user ID")
-		@RequestMapping(value="/users/{userId}/chatrooms", method = RequestMethod.GET)
-		public Set<Chatroom> getChatroomsByUserId(@PathVariable String userId) {
-			return userService.getChatroomsOfUser(userId);
-		}
+	@ApiOperation(value="Find all chatrooms a user is in by the user ID")
+	@RequestMapping(value="/users/{userId}/chatrooms", method = RequestMethod.GET)
+	public Set<Chatroom> getChatroomsByUserId(@PathVariable Long userId) {
+		return userService.getChatroomsOfUser(userId);
+	}
 	
 	//ADD USER:
 	@ApiOperation(value="Add a user")
@@ -65,7 +65,7 @@ public class UserController {
 	//UPDATE USER BY ID:
 	@ApiOperation(value="Editing a user")
 	@RequestMapping(value="/users/{id}", method = RequestMethod.PUT)
-	public ResponseEntity updateUser(@PathVariable String id, @RequestBody User user) {
+	public ResponseEntity updateUser(@PathVariable Long id, @RequestBody User user) {
 		userService.updateUser(id, user);
 		return new ResponseEntity("User successfully edited", HttpStatus.OK);
 	}

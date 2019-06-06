@@ -3,10 +3,13 @@ package com.aiprojekt.controller;
 import java.util.List;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -41,7 +44,7 @@ public class ChatroomController {
 	 
 	//GET BY ID:
 	@ApiOperation(value="Add a chatroom")
-	@RequestMapping(value="/chatrooms}", method = RequestMethod.POST)
+	@RequestMapping(value="/chatrooms", method = RequestMethod.POST)
 	public ResponseEntity addChatroom(@RequestBody Chatroom chatroom){
 		chatroomService.addChatroom(chatroom);
 		return new ResponseEntity("Chatroom successfully added", HttpStatus.OK);
@@ -49,15 +52,16 @@ public class ChatroomController {
 	
 	//GET BY ID:
 	@ApiOperation(value="Edit a chatroom")
-	@RequestMapping(value="/chatrooms/{id}}", method = RequestMethod.PUT)
-	public ResponseEntity addChatroom(@PathVariable String id, @RequestBody Chatroom chatroom){
-		chatroomService.updateChatroom(chatroom);
-		return new ResponseEntity("Chatroom successfully edited", HttpStatus.CREATED);
+	@RequestMapping(value="/chatrooms/{id}", method = RequestMethod.PUT)
+	public ResponseEntity updateChatroom(@PathVariable Long id, @RequestBody Chatroom chatroom){
+		chatroomService.updateChatroom(id, chatroom);
+		return new ResponseEntity("Chatroom successfully edited", HttpStatus.CONTINUE);
 	}
 	
 	//GET BY ID:
+	@Transactional
 	@ApiOperation(value="Remove the chatroom with the given ID")
-	@RequestMapping(value="/chatrooms/{id}}", method = RequestMethod.DELETE)
+	@RequestMapping(value="/chatrooms/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity deleteChatroom(@PathVariable String id){
 		chatroomService.deleteChatroom(id);
 		return new ResponseEntity("Chatroom successfully deleted", HttpStatus.OK);

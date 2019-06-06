@@ -32,12 +32,25 @@ public class MessageService {
 		messageRepository.save(message);
 	}
 	
-	public void updateMessage(String message_id, Message message) {
-		messageRepository.save(message);
+	public void updateMessage(Long message_id, Message message) {
+		
+		Optional<Message> temp = messageRepository.findByMessageId(message_id);
+		
+		if(!temp.isPresent()) return;
+		
+		Message old_message = temp.get();
+		
+		//Compare attributes:
+		if(!old_message.getMessage_txt().contentEquals(message.getMessage_txt()))
+			old_message.setMessage_txt(message.getMessage_txt());
+		//Don't change the other attributes
+		
+		
+		messageRepository.save(old_message);
 	}
 	
-	public void deleteMessage(String message_id) {
-		messageRepository.removeByMessageId(Long.valueOf(message_id));
+	public void deleteMessage(Long message_id) {
+		messageRepository.removeByMessageId(message_id);
 	}
 	
 }

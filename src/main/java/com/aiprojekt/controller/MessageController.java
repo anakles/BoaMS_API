@@ -3,6 +3,8 @@ package com.aiprojekt.controller;
 import java.util.List;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -53,16 +55,17 @@ public class MessageController {
 	//UPDATE BY ID:
 	@ApiOperation(value="Edit the message with the given ID")
 	@RequestMapping(value="/messages/{id}", method = RequestMethod.PUT)
-	public ResponseEntity updateMessage(@PathVariable String id, @RequestBody Message message) {
+	public ResponseEntity updateMessage(@PathVariable Long id, @RequestBody Message message) {
 		messageService.updateMessage(id, message);
-		return new ResponseEntity("Message successfully added", HttpStatus.OK);
+		return new ResponseEntity("Message successfully added", HttpStatus.CONTINUE);
 	}
 		
 		
 	//DELETE BY ID:
+	@Transactional
 	@ApiOperation(value="Delete the message with the given ID")
 	@RequestMapping(value="/messages/{id}", method = RequestMethod.DELETE)
-	public ResponseEntity deleteMessage(@PathVariable String id) {
+	public ResponseEntity deleteMessage(@PathVariable Long id) {
 		messageService.deleteMessage(id);
 		return new ResponseEntity("Message successfully deleted", HttpStatus.OK);
 	}

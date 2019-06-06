@@ -54,7 +54,7 @@ public class Chatroom {
 		joinColumns = @JoinColumn(name = "user_id"),
 		inverseJoinColumns = @JoinColumn(name = "chatroom_id")
 	)
-	@JsonManagedReference
+	//@JsonManagedReference
 	private Set<User> users = new HashSet<User>();
 	
 	public Chatroom() {}
@@ -77,12 +77,12 @@ public class Chatroom {
 	 * 			GETTER/SETTERs
 	 * -------------------------------------*/
 	
-	/*public long getChatroom_id() {
-		return chatroom_id;
+	public long getChatroom_id() {
+		return chatroomId;
 	}
 
-	public void setChatroom_id(long chatroom_id) {
-		this.chatroom_id = chatroom_id;
+	/*public void setChatroom_id(long chatroom_id) {
+		this.chatroomId = chatroom_id;
 	}*/
 
 	public String getChatroom_name() {
@@ -113,9 +113,9 @@ public class Chatroom {
 		return users;
 	}
 
-	public void setUsers(Set<User> users) {
+	/*public void setUsers(Set<User> users) {
 		this.users = users;
-	}
+	}*/
 	
 	public void addUser(User user) {
 		this.users.add(user);
