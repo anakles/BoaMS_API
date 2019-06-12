@@ -6,16 +6,23 @@ import org.springframework.stereotype.Service;
 import com.aiprojekt.entities.Chatroom;
 import com.aiprojekt.entities.User;
 import com.aiprojekt.repositories.ChatroomRepository;
+import com.aiprojekt.repositories.UserRepository;
+
 import java.util.List;
 import java.util.Optional;
 
 import javax.jws.soap.SOAPBinding.Use;
+import javax.transaction.Transactional;
+import javax.xml.crypto.dsig.keyinfo.RetrievalMethod;
 
 @Service
 public class ChatroomService {
 
 	@Autowired
 	ChatroomRepository chatroomRepository;
+	
+	@Autowired
+	UserRepository userRepository;
 	
 	public List getAllChatrooms() {
 		List chatrooms = new ArrayList<>();
@@ -30,6 +37,7 @@ public class ChatroomService {
 	
 	public void addChatroom(Chatroom chatroom) {
 		chatroomRepository.save(chatroom);
+		addUserToChatroom(chatroom.getChatroom_id(), chatroom.getChatroom_owner_id());
 	}
 	
 	public void updateChatroom(Long id, Chatroom chatroom) {
@@ -53,12 +61,30 @@ public class ChatroomService {
 			old_chatroom.setChatroom_owner_id(chatroom.getChatroom_owner_id());
 		}
 		//Always keep the users!
-		
+	
 		
 		//Adding the "changed" entity to the repository
 		chatroomRepository.save(old_chatroom);
 		
 	
+	}
+
+
+	public void addUserToChatroom(Long chatroom_id, Long user_id) {
+		Optional<Chatroom> temp = chatroomRepository.findByChatroomId(chatroom_id);
+		if(!temp.isPresent()) return;
+		Chatroom old_chatroom = temp.get();
+		
+		Optional<User> temp_user = userRepository.findByUserId(user_id);
+		if(!temp_user.isPresent()) return;
+		User old_user = temp_user.get();
+		
+		//Adding the user to the chatroom and the chatroom to the user
+		old_chatroom.addUser(old_user);
+		
+		chatroomRepository.save(old_chatroom);
+		userRepository.save(old_user);
+				
 	}
 	
 	public void deleteChatroom(String chatroom_id) {

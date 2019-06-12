@@ -2,6 +2,8 @@ package com.aiprojekt.entities;
 
 import java.util.HashSet;
 import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,6 +14,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import io.swagger.annotations.ApiModelProperty;
 
 @Entity
@@ -34,7 +38,10 @@ public class User {
 
 	@ManyToMany(
 			mappedBy="users",
-			fetch=FetchType.EAGER)
+			fetch=FetchType.EAGER,
+			cascade={CascadeType.PERSIST, CascadeType.REMOVE}
+			//cascade=CascadeType.ALL
+			)
 	@JsonBackReference
 	@ApiModelProperty(notes="List of all chatrooms this user is included")
 	private Set<Chatroom> chatrooms = new HashSet<Chatroom>();

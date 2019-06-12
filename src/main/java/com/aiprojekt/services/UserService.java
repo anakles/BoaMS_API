@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.aiprojekt.entities.Chatroom;
 import com.aiprojekt.entities.User;
+import com.aiprojekt.repositories.ChatroomRepository;
 import com.aiprojekt.repositories.UserRepository;
 
 @Service

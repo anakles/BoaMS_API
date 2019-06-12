@@ -58,6 +58,14 @@ public class ChatroomController {
 		return new ResponseEntity("Chatroom successfully edited", HttpStatus.CONTINUE);
 	}
 	
+	//tbd
+	@ApiOperation(value="Add a user to a chatroom")
+	@RequestMapping(value="/chatroom/{chatroom_id}/addUser/{user_id}", method = RequestMethod.PUT)
+	public ResponseEntity updateChatroom_addUser(@PathVariable Long chatroom_id, @PathVariable Long user_id){
+		chatroomService.addUserToChatroom(chatroom_id, user_id);
+		return new ResponseEntity("Successfully added user to chatroom", HttpStatus.CONTINUE);
+	}
+	
 	//GET BY ID:
 	@Transactional
 	@ApiOperation(value="Remove the chatroom with the given ID")

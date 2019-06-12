@@ -1,11 +1,8 @@
 package com.aiprojekt.entities;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,11 +13,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import io.swagger.annotations.ApiModelProperty;
@@ -48,11 +43,12 @@ public class Chatroom {
 	private long chatroomOwnerId;
 	
 	@ManyToMany(
-		cascade={ CascadeType.PERSIST, CascadeType.MERGE},
+		cascade={ CascadeType.PERSIST, CascadeType.REMOVE},
+		//cascade=CascadeType.ALL,
 		fetch=FetchType.EAGER)
 	@JoinTable(name = "chatrooms_users",
-		joinColumns = @JoinColumn(name = "user_id"),
-		inverseJoinColumns = @JoinColumn(name = "chatroom_id")
+		joinColumns = @JoinColumn(name = "chatroom_id"),
+		inverseJoinColumns = @JoinColumn(name = "user_id")
 	)
 	//@JsonManagedReference
 	private Set<User> users = new HashSet<User>();
@@ -93,11 +89,11 @@ public class Chatroom {
 		this.chatroomName = chatroom_name;
 	}
 
-	/*public Date getChatroom_creation_date() {
-		return chatroom_creation_date;
+	public Date getChatroom_creation_date() {
+		return chatroomCreationDate;
 	}
 
-	public void setChatroom_creation_date(Date chatroom_creation_date) {
+	/*public void setChatroom_creation_date(Date chatroom_creation_date) {
 		this.chatroom_creation_date = chatroom_creation_date;
 	}*/
 
@@ -117,8 +113,10 @@ public class Chatroom {
 		this.users = users;
 	}*/
 	
+	//Adding the user/chatroom:
 	public void addUser(User user) {
-		this.users.add(user);
+		getUsers().add(user);
+		user.getChatrooms().add(this);
 	}
 	
 	
