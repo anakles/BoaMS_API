@@ -1,0 +1,497 @@
+{
+	"info": {
+		"_postman_id": "a7cff3d7-9b2f-4e27-8597-f2be1b154b5d",
+		"name": "BoaMS",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Chatroom Controller",
+			"item": [
+				{
+					"name": "/chatrooms",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "1adfe551-1268-4849-ae1a-f5d4c181ab88",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3306/chatrooms",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3306",
+							"path": [
+								"chatrooms"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/chatrooms",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"chatroom_name\": \"string\",\r\n  \"chatroom_owner_id\": 0\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3306/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3306",
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/chatrooms/{id}",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "http://localhost:3306/chatrooms/{id}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3306",
+							"path": [
+								"chatrooms",
+								"{id}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/chatroom/{chatroom_id}/addUser/{user_id}",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3306/chatroom/{chatroom_id}/addUser/{user_id}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3306",
+							"path": [
+								"chatroom",
+								"{chatroom_id}",
+								"addUser",
+								"{user_id}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/chatroom/{chatroom_id}/removeUser/{user_id}",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3306/chatroom/{chatroom_id}/removeUser/{user_id}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3306",
+							"path": [
+								"chatroom",
+								"{chatroom_id}",
+								"removeUser",
+								"{user_id}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/chatrooms/{id}",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "text/plain",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"chatroom_name\": \"string\",\r\n  \"chatroom_owner_id\": 0\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3306/chatrooms/{id}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3306",
+							"path": [
+								"chatrooms",
+								"{id}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/chatrooms/{id}",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3306/chatrooms/{id}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3306",
+							"path": [
+								"chatrooms",
+								"{id}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Message Controller",
+			"item": [
+				{
+					"name": "/messages",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3306/messages",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3306",
+							"path": [
+								"messages"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/messages",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"message_author_id\": 0,\r\n  \"message_chatroom_id\": 0,\r\n  \"message_txt\": \"string\"\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3306/messages",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3306",
+							"path": [
+								"messages"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/messages/{id}",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "http://localhost:3306/messages/{id}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3306",
+							"path": [
+								"messages",
+								"{id}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/messages/{id}",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "text/plain",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"message_author_id\": 0,\r\n  \"message_chatroom_id\": 0,\r\n  \"message_txt\": \"string\"\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3306/messages/{id}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3306",
+							"path": [
+								"messages",
+								"{id}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/messages/{id}",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3306/messages/{id}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3306",
+							"path": [
+								"messages",
+								"{id}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User Controller",
+			"item": [
+				{
+					"name": "/users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3306/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3306",
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/users",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"display_name\": \"Testy McTestface\",\n  \"login_name\": \"mctestface_testy\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3306/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3306",
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/users/{id}",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "http://localhost:3306/users/{id}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3306",
+							"path": [
+								"users",
+								"{id}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/users/{id}",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"display_name\": \"string\",\r\n  \"login_name\": \"string\"\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3306/users/{id}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3306",
+							"path": [
+								"users",
+								"{id}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/users/{id}/chatrooms",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3306/users/{id}/chatrooms",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3306",
+							"path": [
+								"users",
+								"{id}",
+								"chatrooms"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/users/byLogin/{loginName}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3306/users/byLogin/{loginName}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3306",
+							"path": [
+								"users",
+								"byLogin",
+								"{loginName}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
