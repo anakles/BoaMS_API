@@ -2,22 +2,17 @@ package com.aiprojekt.controller;
 
 import java.util.List;
 import java.util.Optional;
-
 import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMethod;
-
 import com.aiprojekt.entities.Chatroom;
 import com.aiprojekt.services.ChatroomService;
-
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
@@ -66,15 +61,28 @@ public class ChatroomController {
 		return new ResponseEntity("Successfully added user to chatroom", HttpStatus.CONTINUE);
 	}
 	
+	
+	@ApiOperation(value="Remove a user from the chatroom")
+	@RequestMapping(value="/chatroom/{chatroom_id}/removeUser/{user_id}", method = RequestMethod.PUT)
+	public ResponseEntity updateChatroom_removeUser(@PathVariable Long chatroom_id, @PathVariable Long user_id){
+		boolean success = chatroomService.removeUserFromChatroom(chatroom_id, user_id);
+		
+		if(success)
+			return new ResponseEntity("Successfully removed user from chatroom", HttpStatus.CONTINUE);
+		else
+			return new ResponseEntity("Failed to remove user from chatroom", HttpStatus.NOT_MODIFIED);
+	}
+	
+	
 	//GET BY ID:
 	@Transactional
 	@ApiOperation(value="Remove the chatroom with the given ID")
 	@RequestMapping(value="/chatrooms/{id}", method = RequestMethod.DELETE)
-	public ResponseEntity deleteChatroom(@PathVariable String id){
+	public ResponseEntity deleteChatroom(@PathVariable Long id){
 		chatroomService.deleteChatroom(id);
 		return new ResponseEntity("Chatroom successfully deleted", HttpStatus.OK);
 	}
-		
+    
 		
 		 
 }

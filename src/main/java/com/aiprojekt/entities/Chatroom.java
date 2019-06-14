@@ -119,6 +119,27 @@ public class Chatroom {
 		user.getChatrooms().add(this);
 	}
 	
+	public boolean removeUser(User user) {
+		User temp = null;
+		
+		for(User u : getUsers()) {
+			if(u.getUser_id() == user.getUser_id())
+				temp = u;
+		}
+		
+		if(temp == null) return false;
+		
+		
+		users.remove(temp);
+		//Remove chatroom on user site too:
+		boolean removedUser = user.removeChatroom(this);
+		return (true && removedUser);
+	}
+	
+	public void clearUsers() {
+		users = new HashSet<User>();
+	}
+	
 	
 	
 	

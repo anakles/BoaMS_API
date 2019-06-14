@@ -98,4 +98,19 @@ public class User {
 		this.chatrooms.add(chatroom);
 	}
 	
+	public boolean removeChatroom(Chatroom chatroom) {
+		Chatroom temp = null;
+		
+		for(Chatroom chat : chatrooms) {
+			if(chat.getChatroom_id() == chatroom.getChatroom_id())
+				temp = chat;
+		}
+		
+		
+		if(temp == null) return false;
+		
+		chatrooms.remove(temp);
+		return true;
+	}
+	
 }

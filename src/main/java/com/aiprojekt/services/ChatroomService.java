@@ -87,8 +87,35 @@ public class ChatroomService {
 				
 	}
 	
-	public void deleteChatroom(String chatroom_id) {
-		chatroomRepository.removeByChatroomId(Long.valueOf(chatroom_id));
+	public boolean removeUserFromChatroom(Long chatroom_id, Long user_id) {
+		Optional<Chatroom> temp = chatroomRepository.findByChatroomId(chatroom_id);
+		if(!temp.isPresent()) return false;
+		Chatroom old_chatroom = temp.get();
+		
+		Optional<User> temp_user = userRepository.findByUserId(user_id);
+		if(!temp_user.isPresent()) return false;
+		User old_user = temp_user.get();
+		
+		//Removing chatroom from user and user from chatroom:
+		boolean success = old_chatroom.removeUser(old_user);
+		
+		chatroomRepository.save(old_chatroom);
+		userRepository.save(old_user);
+		
+		return success;
+	}
+	
+	public void deleteChatroom(Long chatroom_id) {
+		//chatroomRepository.removeByChatroomId(Long.valueOf(chatroom_id));
+		//Remove all users from this chatroom:
+		Optional<Chatroom> old_chatroom = chatroomRepository.findByChatroomId(chatroom_id);
+		
+		if(!old_chatroom.isPresent()) return;
+		
+		old_chatroom.get().clearUsers();
+		
+		chatroomRepository.save(old_chatroom.get());
+		
 	}
 	
 	
