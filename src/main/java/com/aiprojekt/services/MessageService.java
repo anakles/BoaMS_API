@@ -28,6 +28,13 @@ public class MessageService {
 		return messageRepository.findByMessageId(Long.valueOf(message_id));
 	}
 	
+	public List getMessagesByChatroom(long message_chatroom_id) {
+		List messages = new ArrayList<>();
+		messageRepository.findByMessageChatroomId(message_chatroom_id).forEach(messages::add);
+		
+		return messages;
+	}
+	
 	public void addMessage(Message message) {
 		messageRepository.save(message);
 	}

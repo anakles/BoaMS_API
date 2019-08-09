@@ -42,6 +42,12 @@ public class MessageController {
 		return messageService.getMessage(id);
 	}
 	
+	//GET ALL MESSAGES BY A CHATROOM ID
+	@ApiOperation(value="Get all messages from a chatroom ID")
+	@RequestMapping(value="/messages/byChatroom/{id}", method = RequestMethod.GET)
+	public List getMessagesByChatroom(@PathVariable long id) {
+		return messageService.getMessagesByChatroom(id);
+	}
 	
 	//CREATE:
 	@ApiOperation(value="Create a message")
