@@ -40,35 +40,35 @@ public class ChatroomController {
 	//GET BY ID:
 	@ApiOperation(value="Add a chatroom")
 	@RequestMapping(value="/chatrooms", method = RequestMethod.POST)
-	public ResponseEntity addChatroom(@RequestBody Chatroom chatroom){
+	public ResponseEntity<Chatroom> addChatroom(@RequestBody Chatroom chatroom){
 		chatroomService.addChatroom(chatroom);
-		return new ResponseEntity("Chatroom successfully added", HttpStatus.OK);
+		return new ResponseEntity(chatroom, HttpStatus.CREATED);
 	}
 	
 	//GET BY ID:
 	@ApiOperation(value="Edit a chatroom")
 	@RequestMapping(value="/chatrooms/{id}", method = RequestMethod.PUT)
-	public ResponseEntity updateChatroom(@PathVariable Long id, @RequestBody Chatroom chatroom){
+	public ResponseEntity<Chatroom> updateChatroom(@PathVariable Long id, @RequestBody Chatroom chatroom){
 		chatroomService.updateChatroom(id, chatroom);
-		return new ResponseEntity("Chatroom successfully edited", HttpStatus.CONTINUE);
+		return new ResponseEntity(chatroomService.getChatroom(String.valueOf(id)), HttpStatus.CREATED);
 	}
 	
 	//tbd
 	@ApiOperation(value="Add a user to a chatroom")
 	@RequestMapping(value="/chatroom/{chatroom_id}/addUser/{user_id}", method = RequestMethod.PUT)
-	public ResponseEntity updateChatroom_addUser(@PathVariable Long chatroom_id, @PathVariable Long user_id){
+	public ResponseEntity<Chatroom> updateChatroom_addUser(@PathVariable Long chatroom_id, @PathVariable Long user_id){
 		chatroomService.addUserToChatroom(chatroom_id, user_id);
-		return new ResponseEntity("Successfully added user to chatroom", HttpStatus.CONTINUE);
+		return new ResponseEntity(chatroomService.getChatroom(String.valueOf(chatroom_id)), HttpStatus.CREATED);
 	}
 	
 	
 	@ApiOperation(value="Remove a user from the chatroom")
 	@RequestMapping(value="/chatroom/{chatroom_id}/removeUser/{user_id}", method = RequestMethod.PUT)
-	public ResponseEntity updateChatroom_removeUser(@PathVariable Long chatroom_id, @PathVariable Long user_id){
+	public ResponseEntity<Chatroom> updateChatroom_removeUser(@PathVariable Long chatroom_id, @PathVariable Long user_id){
 		boolean success = chatroomService.removeUserFromChatroom(chatroom_id, user_id);
 		
 		if(success)
-			return new ResponseEntity("Successfully removed user from chatroom", HttpStatus.CONTINUE);
+			return new ResponseEntity(chatroomService.getChatroom(String.valueOf(chatroom_id)), HttpStatus.CREATED);
 		else
 			return new ResponseEntity("Failed to remove user from chatroom", HttpStatus.NOT_MODIFIED);
 	}

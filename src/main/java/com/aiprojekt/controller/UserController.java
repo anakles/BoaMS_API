@@ -57,16 +57,16 @@ public class UserController {
 	//ADD USER:
 	@ApiOperation(value="Add a user")
 	@RequestMapping(value="/users", method = RequestMethod.POST)
-	public ResponseEntity addUser(@RequestBody User user) {
+	public ResponseEntity<User> addUser(@RequestBody User user) {
 		userService.addUser(user);
-		return new ResponseEntity("User successfully added", HttpStatus.CREATED);
+		return new ResponseEntity(user, HttpStatus.CREATED);
 	}
 	
 	//UPDATE USER BY ID:
 	@ApiOperation(value="Editing a user")
 	@RequestMapping(value="/users/{id}", method = RequestMethod.PUT)
-	public ResponseEntity updateUser(@PathVariable Long id, @RequestBody User user) {
+	public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User user) {
 		userService.updateUser(id, user);
-		return new ResponseEntity("User successfully edited", HttpStatus.OK);
+		return new ResponseEntity(user, HttpStatus.CREATED);
 	}
 }

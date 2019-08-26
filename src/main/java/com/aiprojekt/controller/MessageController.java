@@ -52,18 +52,18 @@ public class MessageController {
 	//CREATE:
 	@ApiOperation(value="Create a message")
 	@RequestMapping(value="/messages", method = RequestMethod.POST)
-	public ResponseEntity addMessage(@RequestBody Message message) {
+	public ResponseEntity<Message> addMessage(@RequestBody Message message) {
 		messageService.addMessage(message);
-		return new ResponseEntity("Message successfully added", HttpStatus.CREATED);
+		return new ResponseEntity(message, HttpStatus.CREATED);
 	}
 	
 	
 	//UPDATE BY ID:
 	@ApiOperation(value="Edit the message with the given ID")
 	@RequestMapping(value="/messages/{id}", method = RequestMethod.PUT)
-	public ResponseEntity updateMessage(@PathVariable Long id, @RequestBody Message message) {
+	public ResponseEntity<Message> updateMessage(@PathVariable Long id, @RequestBody Message message) {
 		messageService.updateMessage(id, message);
-		return new ResponseEntity("Message successfully added", HttpStatus.CONTINUE);
+		return new ResponseEntity(message, HttpStatus.CREATED);
 	}
 		
 		
