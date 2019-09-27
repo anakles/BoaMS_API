@@ -1,6 +1,6 @@
 package com.aiprojekt.entities;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.CascadeType;
@@ -15,9 +15,6 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import io.swagger.annotations.ApiModelProperty;
 
 @Entity
@@ -36,7 +33,7 @@ public class Chatroom {
 	
 	@ApiModelProperty(notes="Date and time the chatroom was created")
 	@Column(name="chatroom_creation_date")
-	private Date chatroomCreationDate;
+	private LocalDateTime chatroomCreationDate;
 	
 	@ApiModelProperty(notes="Unique identifier of the owner/creator of a chatroom")
 	@Column(name="chatroom_owner_id")
@@ -58,11 +55,13 @@ public class Chatroom {
 	public Chatroom(String chatroomName, long chatroomOwnerId) {
 		this.chatroomName = chatroomName;
 		this.chatroomOwnerId = chatroomOwnerId;
+		
+		createdAt();
 	}
 
 	@PrePersist
 	public void createdAt() {
-		this.chatroomCreationDate = new Date();
+		this.chatroomCreationDate = LocalDateTime.now();
 	}	
 	
 	
@@ -89,7 +88,7 @@ public class Chatroom {
 		this.chatroomName = chatroom_name;
 	}
 
-	public Date getChatroom_creation_date() {
+	public LocalDateTime getChatroom_creation_date() {
 		return chatroomCreationDate;
 	}
 

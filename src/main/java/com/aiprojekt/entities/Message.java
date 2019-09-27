@@ -1,6 +1,7 @@
 package com.aiprojekt.entities;
 
-import java.util.Date;
+import java.time.LocalDateTime;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,7 +9,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
-
 import io.swagger.annotations.ApiModelProperty;
 
 @Entity
@@ -35,18 +35,20 @@ public class Message {
 	
 	@ApiModelProperty(notes="Auto-generated date of when the message was created/sent")
 	@Column(name="message_creation_date")
-	private Date messageCreationDate;
+	private LocalDateTime messageCreationDate;
 	
 	public Message() {}
 	
 	public Message(String messageTxt, long messageAuthorId) {
 		this.messageTxt = messageTxt;
 		this.messageAuthorId = messageAuthorId;
+		
+		createdAt();
 	}
 	
 	@PrePersist
 	public void createdAt() {
-		this.messageCreationDate = new Date();
+		this.messageCreationDate =  LocalDateTime.now();
 	}	
 
 
@@ -89,10 +91,11 @@ public class Message {
 		this.messageAuthorId = message_author_id;
 	}
 
-	/*public Date getMessage_creation_date() {
-		return message_creation_date;
+	public LocalDateTime getMessage_creation_date() {
+		return messageCreationDate;
 	}
-
+	
+	/*
 	public void setMessage_creation_date(Date message_creation_date) {
 		this.message_creation_date = message_creation_date;
 	}*/
